@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e2664d0-8698-4ddd-a147-61f690d6071d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../elascitsearch-test/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../elascitsearch-test/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" />
@@ -60,7 +62,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kim-yeonchan/Projects/elasticsearch-test/elascitsearch-test&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kim-yeonchan/Projects/elasticsearch-test/elasticsearch-test&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -70,12 +72,10 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$PROJECT_DIR$" />
-      <setting name="debug" value="false" />
+    <configuration name="ElasticApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="demo.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.elastic.stack.ElasticApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -98,7 +98,9 @@
       <option name="presentableId" value="Default" />
       <updated>1722999833511</updated>
       <workItem from="1722999834527" duration="754000" />
-      <workItem from="1723000600227" duration="84000" />
+      <workItem from="1723000680936" duration="3000" />
+      <workItem from="1723000723530" duration="2000" />
+      <workItem from="1723000748783" duration="99000" />
     </task>
     <servers />
   </component>
