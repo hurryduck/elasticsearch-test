@@ -1,10 +1,7 @@
 package com.elastic.stack.elastic.repository;
 
-import com.elastic.stack.elastic.entity.TestDoc;
+import com.elastic.stack.elastic.entity.ProductGroupDoc;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-import java.util.List;
-
-public interface ElasticRepository extends ElasticsearchRepository<TestDoc, String> {
-    List<TestDoc> findByName(String name);
+public interface ElasticRepository extends ElasticsearchRepository<ProductGroupDoc, String> {
 }

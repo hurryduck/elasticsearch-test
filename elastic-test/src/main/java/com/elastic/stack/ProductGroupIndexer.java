@@ -1,5 +1,7 @@
 package com.elastic.stack;
 
+import com.elastic.stack.elastic.entity.ProductGroupDoc;
+import com.elastic.stack.elastic.repository.ElasticRepository;
 import com.elastic.stack.product.entity.Destination;
 import com.elastic.stack.product.entity.Product;
 import com.elastic.stack.product.entity.ProductGroup;
@@ -21,9 +23,12 @@ public class ProductGroupIndexer {
     private final ProductRepository productRepository;
     private final ProductGroupRepository productGroupRepository;
 
+    private final ElasticRepository elasticRepository;
+
     @PostConstruct
     public void productGroupIndexer() {
-        storeInDatabase();
+        storeInDatabase(); // product group DB에 저장
+        indexInElasticsearch(); // product group 인덱싱
     }
 
     private void storeInDatabase() {
@@ -86,6 +91,28 @@ public class ProductGroupIndexer {
         this.productGroupRepository.findAll().forEach(System.out::println);
 
         System.out.println("store in database end!!!");
+        System.out.println("\n\n\n");
+    }
+
+    private void indexInElasticsearch() {
+        System.out.println("\n\n\n");
+        System.out.println("index in product group start!!!");
+
+        // DB에 저장된 모든 productGroup 가져오기
+        List<ProductGroup> productGroups = this.productGroupRepository.findAll();
+
+        // Elasticsearch에 인덱싱
+        productGroups.forEach(productGroup -> {
+            ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
+                    .id(productGroup.getId())
+                    .description(productGroup.getDescription())
+                    .nights(productGroup.getNights())
+                    .build();
+
+            this.elasticRepository.save(productGroupDoc);
+        });
+
+        System.out.println("index in product group end!!!");
         System.out.println("\n\n\n");
     }
 }
