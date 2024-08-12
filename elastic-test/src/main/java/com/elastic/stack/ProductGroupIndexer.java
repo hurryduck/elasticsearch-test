@@ -32,13 +32,8 @@ public class ProductGroupIndexer {
     }
 
     private void storeInDatabase() {
-        System.out.println("\n\n\n");
-        System.out.println("store in database start!!!");
         // 패키지 여행 상품 목록 조회
         List<Product> products = this.productRepository.findAll();
-
-        System.out.println("패키지 여행 상품 리스트");
-        products.forEach(System.out::println);
 
         // 패키지 여행 상품 그룹핑
         Map<Map.Entry<Destination, Integer>, List<Product>> productByDestinationAndNights = products.stream()
@@ -48,26 +43,6 @@ public class ProductGroupIndexer {
                                 product.getProductInformation().getNights()
                         )
                 )));
-
-        System.out.println("패키지 여행 상품 그룹핑 리스트");
-        productByDestinationAndNights.forEach((key, productList) -> {
-            Destination destination = key.getKey();
-            Integer nights = key.getValue();
-            System.out.println("여행지: " + destination.getKrName());
-            System.out.println("숙박일: " + nights + "박" + (nights + 1) + "일");
-
-            for (Product product : productList) {
-                System.out.println("  - Product ID: " + product.getId());
-                System.out.println("    Title: " + product.getProductInformation().getTitle());
-                System.out.println("    Price: " + product.getProductInformation().getPrice());
-                System.out.println("    Start Date: " + product.getProductInformation().getStart_date());
-                System.out.println("    Thumbnail URL: " + product.getProductInformation().getThumbnailUrl());
-                System.out.println("    Travel Agency: " + product.getProductInformation().getTravelAgency());
-                System.out.println("    View Count: " + product.getViewCount());
-                System.out.println("    Visible: " + product.isVisible());
-            }
-            System.out.println();
-        });
 
         // 패키지 여행 상품 그룹 생성
         productByDestinationAndNights.forEach((key, productList) -> {
@@ -86,18 +61,9 @@ public class ProductGroupIndexer {
             // 패키지 여행 상품 그룹 저장
             this.productGroupRepository.save(productGroup);
         });
-
-        System.out.println("패키지 여행 상품 그룹 목록");
-        this.productGroupRepository.findAll().forEach(System.out::println);
-
-        System.out.println("store in database end!!!");
-        System.out.println("\n\n\n");
     }
 
     private void indexInElasticsearch() {
-        System.out.println("\n\n\n");
-        System.out.println("index in product group start!!!");
-
         // DB에 저장된 모든 productGroup 가져오기
         List<ProductGroup> productGroups = this.productGroupRepository.findAll();
 
@@ -111,8 +77,5 @@ public class ProductGroupIndexer {
 
             this.elasticRepository.save(productGroupDoc);
         });
-
-        System.out.println("index in product group end!!!");
-        System.out.println("\n\n\n");
     }
 }
