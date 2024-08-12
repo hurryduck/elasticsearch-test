@@ -1,4 +1,4 @@
 @NonNullApi
-package com.elastic.stack.config;
+package com.elastic.stack.elastic.config;
 
 import org.springframework.lang.NonNullApi;

@@ -1,7 +1,7 @@
-package com.elastic.stack.controller;
+package com.elastic.stack.elastic.controller;
 
-import com.elastic.stack.entity.TestDoc;
-import com.elastic.stack.service.ElasticService;
+import com.elastic.stack.elastic.entity.TestDoc;
+import com.elastic.stack.elastic.service.ElasticService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

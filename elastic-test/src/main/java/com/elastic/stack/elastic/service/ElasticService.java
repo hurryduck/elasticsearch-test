@@ -1,7 +1,7 @@
-package com.elastic.stack.service;
+package com.elastic.stack.elastic.service;
 
-import com.elastic.stack.entity.TestDoc;
-import com.elastic.stack.repository.ElasticRepository;
+import com.elastic.stack.elastic.entity.TestDoc;
+import com.elastic.stack.elastic.repository.ElasticRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

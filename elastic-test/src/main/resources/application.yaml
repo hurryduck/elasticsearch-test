@@ -1,6 +1,12 @@
 spring:
   application:
     name: elastic-test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/test_db
+    password: test
+    username: test
+
   elasticsearch:
     uris: 101.79.11.20:9200
     username: ${ELASTIC_USERNAME}

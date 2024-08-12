@@ -1,4 +1,4 @@
-package com.elastic.stack.entity;
+package com.elastic.stack.elastic.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

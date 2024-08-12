@@ -1,4 +1,4 @@
-package com.elastic.stack.config;
+package com.elastic.stack.elastic.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
