@@ -18,10 +18,13 @@ public class ElasticConfig extends ElasticsearchConfiguration {
 
     @Override
     public ClientConfiguration clientConfiguration() {
-        return ClientConfiguration.builder()
-                .connectedTo(elasticsearchUris)
-                .usingSsl()
-                .withBasicAuth(username, password)
-                .build();
+        try {
+            return ClientConfiguration.builder()
+                    .connectedTo(elasticsearchUris)
+                    .withBasicAuth(username, password)
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
