@@ -3,6 +3,7 @@ package com.elastic.stack.product.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 @Entity
@@ -21,6 +22,7 @@ public class ProductGroup {
     private Destination description;
     private int nights;
 
+    private LocalDate createDate;
     @ElementCollection(
             fetch = FetchType.EAGER,
             targetClass = ProductInformation.class
@@ -32,6 +34,5 @@ public class ProductGroup {
     @MapKeyColumn(name = "product_id")
     @Column(name = "product_information")
     private Map<Long, ProductInformation> productList;
-
     private int viewCount;
 }

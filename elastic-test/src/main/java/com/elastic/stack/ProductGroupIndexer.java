@@ -12,6 +12,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ public class ProductGroupIndexer {
 
     private final ElasticRepository elasticRepository;
 
+    private final LocalDate currentDate = LocalDate.now();
+
     @PostConstruct
     public void productGroupIndexer() {
         storeInDatabase(); // product group DB에 저장
@@ -33,7 +36,7 @@ public class ProductGroupIndexer {
 
     private void storeInDatabase() {
         // 패키지 여행 상품 목록 조회
-        List<Product> products = this.productRepository.findAll();
+        List<Product> products = this.productRepository.findByCreateDate(this.currentDate);
 
         // 패키지 여행 상품 그룹핑
         Map<Map.Entry<Destination, Integer>, List<Product>> productByDestinationAndNights = products.stream()
@@ -55,6 +58,7 @@ public class ProductGroupIndexer {
             ProductGroup productGroup = ProductGroup.builder()
                     .description(destination)
                     .nights(nights)
+                    .createDate(this.currentDate)
                     .productList(productInformationMap)
                     .build();
 
@@ -65,7 +69,10 @@ public class ProductGroupIndexer {
 
     private void indexInElasticsearch() {
         // DB에 저장된 모든 productGroup 가져오기
-        List<ProductGroup> productGroups = this.productGroupRepository.findAll();
+        List<ProductGroup> productGroups = this.productGroupRepository.findByCreateDate(this.currentDate);
+
+        // 기존 인덱싱 삭제
+        this.elasticRepository.deleteAll();
 
         // Elasticsearch에 인덱싱
         productGroups.forEach(productGroup -> {

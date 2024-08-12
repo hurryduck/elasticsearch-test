@@ -3,6 +3,7 @@ package com.elastic.stack.product.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,7 @@ public class Product {
     @Embedded
     private ProductInformation productInformation;
 
+    private LocalDate createDate;
     private int viewCount;  // 조회수
     @ElementCollection(
             fetch = FetchType.EAGER,
