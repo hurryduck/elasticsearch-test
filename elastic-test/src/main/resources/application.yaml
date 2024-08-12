@@ -6,6 +6,14 @@ spring:
     url: jdbc:mysql://localhost/test_db
     password: test
     username: test
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        hbm2ddl:
+          auto: update
 
   elasticsearch:
     uris: 101.79.11.20:9200
