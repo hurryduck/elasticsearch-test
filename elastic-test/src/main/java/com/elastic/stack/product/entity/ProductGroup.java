@@ -21,7 +21,10 @@ public class ProductGroup {
     private Destination description;
     private int nights;
 
-    @ElementCollection
+    @ElementCollection(
+            fetch = FetchType.EAGER,
+            targetClass = ProductInformation.class
+    )
     @CollectionTable(
             name = "tbl_product_group_products",
             joinColumns = @JoinColumn(name = "product_group_id")

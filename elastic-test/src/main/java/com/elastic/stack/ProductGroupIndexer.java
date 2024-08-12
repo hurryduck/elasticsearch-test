@@ -17,16 +17,18 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class CreateProductGroup {
+public class ProductGroupIndexer {
     private final ProductRepository productRepository;
     private final ProductGroupRepository productGroupRepository;
 
     @PostConstruct
-    public void initializeProductGroup() {
-        System.out.println("\n\n\n");
-        System.out.println("test start!!!");
-        System.out.println("\n\n\n");
+    public void productGroupIndexer() {
+        storeInDatabase();
+    }
 
+    private void storeInDatabase() {
+        System.out.println("\n\n\n");
+        System.out.println("store in database start!!!");
         // 패키지 여행 상품 목록 조회
         List<Product> products = this.productRepository.findAll();
 
@@ -36,10 +38,10 @@ public class CreateProductGroup {
         // 패키지 여행 상품 그룹핑
         Map<Map.Entry<Destination, Integer>, List<Product>> productByDestinationAndNights = products.stream()
                 .collect((Collectors.groupingBy(product ->
-                    new AbstractMap.SimpleEntry<>(
-                            product.getProductInformation().getDestination(),
-                            product.getProductInformation().getNights()
-                    )
+                        new AbstractMap.SimpleEntry<>(
+                                product.getProductInformation().getDestination(),
+                                product.getProductInformation().getNights()
+                        )
                 )));
 
         System.out.println("패키지 여행 상품 그룹핑 리스트");
@@ -80,8 +82,10 @@ public class CreateProductGroup {
             this.productGroupRepository.save(productGroup);
         });
 
-        System.out.println("\n\n\n");
-        System.out.println("test end!!!");
+        System.out.println("패키지 여행 상품 그룹 목록");
+        this.productGroupRepository.findAll().forEach(System.out::println);
+
+        System.out.println("store in database end!!!");
         System.out.println("\n\n\n");
     }
 }
