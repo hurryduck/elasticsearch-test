@@ -56,7 +56,7 @@ public class ProductGroupIndexer {
 
             // 패키지 여행 상품 그룹 값 대입
             ProductGroup productGroup = ProductGroup.builder()
-                    .description(destination)
+                    .destination(destination)
                     .nights(nights)
                     .createDate(this.currentDate)
                     .productList(productInformationMap)
@@ -78,7 +78,7 @@ public class ProductGroupIndexer {
         productGroups.forEach(productGroup -> {
             ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
                     .id(productGroup.getId())
-                    .description(productGroup.getDescription())
+                    .destination(productGroup.getDestination())
                     .nights(productGroup.getNights())
                     .productList(productGroup.getProductList())
                     .viewCount(productGroup.getViewCount())

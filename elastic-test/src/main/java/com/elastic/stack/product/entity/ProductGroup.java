@@ -19,7 +19,7 @@ public class ProductGroup {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Destination description;
+    private Destination destination;
     private int nights;
 
     private LocalDate createDate;
