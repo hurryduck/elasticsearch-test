@@ -23,15 +23,5 @@ public class Product {
 
     private LocalDate createDate;
     private int viewCount;  // 조회수
-    @ElementCollection(
-            fetch = FetchType.EAGER,
-            targetClass = TravelCategory.class
-    )
-    @CollectionTable(
-            name = "tbl_travel_category",
-            joinColumns = @JoinColumn(name = "product_id")
-    )
-    @Enumerated(EnumType.STRING)
-    private Set<TravelCategory> travelCategories; // 여행 카테고리
     private boolean isVisible; // 페이지 노출 가능 여부
 }
