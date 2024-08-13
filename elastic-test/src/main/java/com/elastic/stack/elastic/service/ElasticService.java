@@ -28,15 +28,6 @@ public class ElasticService {
                 .collect(Collectors.toList());
     }
 
-    // Read a document by ID
-    public Optional<ProductGroupDoc> findById(String id) {
-        return this.repository.findById(id);
-    }
-
-    public void deleteById(String id) {
-        this.repository.deleteById(id);
-    }
-
     // Delete all documents
     public void deleteAll() {
         this.repository.deleteAll();

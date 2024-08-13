@@ -30,20 +30,6 @@ public class ElasticController {
         return this.elasticService.findAll();
     }
 
-    // Get a document by ID
-    @GetMapping("/{id}")
-    public Optional<ProductGroupDoc> getTestDocById(@PathVariable String id) {
-        log.info("GET /elastic/{} - Fetching document by ID", id);
-        return this.elasticService.findById(id);
-    }
-
-    // Delete a document by ID
-    @DeleteMapping("/{id}")
-    public void deleteTestDocById(@PathVariable String id) {
-        log.info("DELETE /elastic/{} - Deleting document with ID", id);
-        this.elasticService.deleteById(id);
-    }
-
     // Delete all documents
     @DeleteMapping
     public void deleteAllTestDocs() {
