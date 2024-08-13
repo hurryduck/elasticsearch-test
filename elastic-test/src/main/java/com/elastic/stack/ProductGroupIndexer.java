@@ -80,6 +80,8 @@ public class ProductGroupIndexer {
                     .id(productGroup.getId())
                     .description(productGroup.getDescription())
                     .nights(productGroup.getNights())
+                    .productList(productGroup.getProductList())
+                    .viewCount(productGroup.getViewCount())
                     .build();
 
             this.elasticRepository.save(productGroupDoc);
