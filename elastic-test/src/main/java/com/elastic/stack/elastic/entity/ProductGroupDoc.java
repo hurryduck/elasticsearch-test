@@ -22,12 +22,13 @@ public class ProductGroupDoc {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Object)
     private Destination description;
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Integer)
     private int nights;
 
     @Field(type = FieldType.Object)
     private Map<Long, ProductInformation> productList;
+    @Field(type = FieldType.Integer)
     private int viewCount;
 }
