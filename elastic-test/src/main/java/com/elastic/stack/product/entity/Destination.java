@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Destination {
     JEJU("제주도"),
     GANGWON("강원"),
-    JEOLLA("전라"),
+    JEOLLA("전라도"),
     BUSAN("부산"),
     GEOJE("거제"),
     NAMHAE("남해"),

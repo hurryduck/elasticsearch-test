@@ -7,9 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Map;
 
@@ -20,8 +18,11 @@ import java.util.Map;
 @Builder
 public class ProductGroupDoc {
     @Id
-    @Field(type = FieldType.Long)
+    @Field(type = FieldType.Keyword)
     private Long id;
+
+    @Field(type = FieldType.Text, analyzer = "nori", searchAnalyzer = "nori")
+    private String searchKeywords;
 
     @Field(type = FieldType.Object)
     private Destination destination;

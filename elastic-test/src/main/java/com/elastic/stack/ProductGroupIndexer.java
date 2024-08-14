@@ -30,7 +30,7 @@ public class ProductGroupIndexer {
 
     @PostConstruct
     public void productGroupIndexer() {
-        storeInDatabase(); // product group DB에 저장
+//        storeInDatabase(); // product group DB에 저장
         indexInElasticsearch(); // product group 인덱싱
     }
 
@@ -78,6 +78,7 @@ public class ProductGroupIndexer {
         productGroups.forEach(productGroup -> {
             ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
                     .id(productGroup.getId())
+                    .searchKeywords(productGroup.getDestination().getKrName())
                     .destination(productGroup.getDestination())
                     .nights(productGroup.getNights())
                     .productList(productGroup.getProductList())
