@@ -17,8 +17,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProductInformation {
     @Enumerated(EnumType.STRING)
+    @Field(type = FieldType.Object)
     private Destination destination; // 여행지
-    private int nights; // 여행일
+    private Integer nights; // 여행일
 
     private String title; // 제목
     @Field(type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd")

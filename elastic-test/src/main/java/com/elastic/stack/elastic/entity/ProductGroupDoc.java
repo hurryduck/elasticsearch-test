@@ -1,13 +1,16 @@
 package com.elastic.stack.elastic.entity;
 
 import com.elastic.stack.product.entity.Destination;
+import com.elastic.stack.product.entity.ProductGroup;
 import com.elastic.stack.product.entity.ProductInformation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Map;
 
@@ -33,4 +36,14 @@ public class ProductGroupDoc {
     private Map<Long, ProductInformation> productList;
     @Field(type = FieldType.Integer)
     private int viewCount;
+
+    public ProductGroup toEntity() {
+        return ProductGroup.builder()
+                .id(id)
+                .destination(destination)
+                .nights(nights)
+                .productList(productList)
+                .viewCount(viewCount)
+                .build();
+    }
 }
