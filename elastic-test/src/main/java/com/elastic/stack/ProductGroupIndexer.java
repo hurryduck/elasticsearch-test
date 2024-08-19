@@ -2,10 +2,7 @@ package com.elastic.stack;
 
 import com.elastic.stack.elastic.entity.ProductGroupDoc;
 import com.elastic.stack.elastic.repository.ElasticRepository;
-import com.elastic.stack.product.entity.Destination;
-import com.elastic.stack.product.entity.Product;
-import com.elastic.stack.product.entity.ProductGroup;
-import com.elastic.stack.product.entity.ProductInformation;
+import com.elastic.stack.product.entity.*;
 import com.elastic.stack.product.repository.ProductGroupRepository;
 import com.elastic.stack.product.repository.ProductRepository;
 import jakarta.annotation.PostConstruct;
@@ -13,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.AbstractMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,7 +25,7 @@ public class ProductGroupIndexer {
 
     @PostConstruct
     public void productGroupIndexer() {
-//        storeInDatabase(); // product group DB에 저장
+        storeInDatabase(); // product group DB에 저장
         indexInElasticsearch(); // product group 인덱싱
     }
 
@@ -53,12 +48,18 @@ public class ProductGroupIndexer {
             Integer nights = key.getValue();
             Map<Long, ProductInformation> productInformationMap = productList.stream()
                     .collect((Collectors.toMap(Product::getId, Product::getProductInformation)));
+            Set<String> keywordSet = new HashSet<>();
+            keywordSet.add(destination.getKorName());
+            keywordSet.addAll(getRandomThemesKeywordSet());
 
             // 패키지 여행 상품 그룹 값 대입
             ProductGroup productGroup = ProductGroup.builder()
                     .destination(destination)
                     .nights(nights)
                     .createDate(this.currentDate)
+                    .searchKeywords(SearchKeyword.builder()
+                            .keywordSet(keywordSet)
+                            .build())
                     .productList(productInformationMap)
                     .build();
 
@@ -78,7 +79,7 @@ public class ProductGroupIndexer {
         productGroups.forEach(productGroup -> {
             ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
                     .id(productGroup.getId())
-                    .searchKeywords(productGroup.getDestination().getKrName())
+                    .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
                     .destination(productGroup.getDestination())
                     .nights(productGroup.getNights())
                     .productList(productGroup.getProductList())
@@ -87,5 +88,18 @@ public class ProductGroupIndexer {
 
             this.elasticRepository.save(productGroupDoc);
         });
+    }
+
+    private Set<String> getRandomThemesKeywordSet() {
+        Set<String> keywordSet = new HashSet<>();
+        Random random = new Random();
+
+        TravelTheme[] allThemes = TravelTheme.values();
+
+        while (keywordSet.size() < 2) {
+            keywordSet.add(allThemes[random.nextInt(allThemes.length)].getDisplayKorName());
+        }
+
+        return keywordSet;
     }
 }

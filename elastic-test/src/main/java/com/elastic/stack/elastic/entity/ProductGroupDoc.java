@@ -3,6 +3,7 @@ package com.elastic.stack.elastic.entity;
 import com.elastic.stack.product.entity.Destination;
 import com.elastic.stack.product.entity.ProductGroup;
 import com.elastic.stack.product.entity.ProductInformation;
+import com.elastic.stack.product.entity.SearchKeyword;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Map;
+import java.util.Set;
 
 @Document(indexName = "product_group")
 @Data
@@ -26,6 +28,7 @@ public class ProductGroupDoc {
 
     @Field(type = FieldType.Text, analyzer = "nori", searchAnalyzer = "nori")
     private String searchKeywords;
+//    private Set<SearchKeyword> searchKeywords;
 
     @Field(type = FieldType.Object)
     private Destination destination;
