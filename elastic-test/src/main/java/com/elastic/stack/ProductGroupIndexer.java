@@ -2,9 +2,11 @@ package com.elastic.stack;
 
 import com.elastic.stack.elastic.entity.ProductGroupDoc;
 import com.elastic.stack.elastic.repository.ElasticRepository;
+import com.elastic.stack.elastic.service.ProductListJsonService;
 import com.elastic.stack.product.entity.*;
 import com.elastic.stack.product.repository.ProductGroupRepository;
 import com.elastic.stack.product.repository.ProductRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,7 @@ public class ProductGroupIndexer {
     private final ProductGroupRepository productGroupRepository;
 
     private final ElasticRepository elasticRepository;
+    private final ProductListJsonService jsonService;
 
     private final LocalDate currentDate = LocalDate.now();
 
@@ -77,16 +80,22 @@ public class ProductGroupIndexer {
 
         // Elasticsearch에 인덱싱
         productGroups.forEach(productGroup -> {
-            ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
-                    .id(productGroup.getId())
-                    .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
-                    .destination(productGroup.getDestination())
-                    .nights(productGroup.getNights())
-                    .productList(productGroup.getProductList())
-                    .viewCount(productGroup.getViewCount())
-                    .build();
+            try {
+                String productListJson = jsonService.convertProductListToJson(productGroup.getProductList());
 
-            this.elasticRepository.save(productGroupDoc);
+                ProductGroupDoc productGroupDoc = ProductGroupDoc.builder()
+                        .id(productGroup.getId())
+                        .searchKeywords(productGroup.getSearchKeywords().getSearchKeyword())
+                        .destination(productGroup.getDestination())
+                        .nights(productGroup.getNights())
+                        .productListJson(productListJson)
+                        .viewCount(productGroup.getViewCount())
+                        .build();
+
+                this.elasticRepository.save(productGroupDoc);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         });
     }
 

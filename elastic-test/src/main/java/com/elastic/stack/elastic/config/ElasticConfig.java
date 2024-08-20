@@ -1,5 +1,6 @@
 package com.elastic.stack.elastic.config;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
@@ -17,6 +18,7 @@ public class ElasticConfig extends ElasticsearchConfiguration {
     private String password;
 
     @Override
+    @NonNull
     public ClientConfiguration clientConfiguration() {
         try {
             return ClientConfiguration.builder()
